@@ -1,6 +1,5 @@
 import { PrismaClient } from '@prisma/client'
 import { Redis } from './lib/redis'
-import { z } from 'zod'
 import { Server } from 'bun'
 import { join } from 'path'
 import { Utils } from './lib/utils'

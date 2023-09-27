@@ -32,3 +32,30 @@ model Article {
 
   @@map("articles")
 }
+
+model Order {
+  id Int @id @default(autoincrement())
+  shop_id Int
+  order_shop_id BigInt @unique
+  customer_shop_id BigInt?
+  order_code String @db.VarChar(32)
+  email String?
+  phone String? @db.VarChar(32)
+  note String?
+  tags String?
+  status Int
+  line_items String @db.Text
+  total BigInt
+  amount Int
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  @@map("orders")
+}
+
+model Shop {
+  id Int @id @default(autoincrement())
+  name String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+  @@map("shops")
+}

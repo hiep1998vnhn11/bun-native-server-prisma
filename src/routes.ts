@@ -7,13 +7,16 @@ import { RegisterRequestSchema } from './request/auth/register.request'
 import { LoginRequestSchema } from './request/auth/login.request'
 import { ArticleController } from './controllers/article.controller'
 import { StoreArticleRequestSchema } from './request/article'
+import { WebhookController } from './controllers/webhook.controller'
 
 export class AppRoute {
   private readonly authController: AuthController
   private readonly articleController: ArticleController
+  private readonly webhookController: WebhookController
   constructor(private readonly app: Application) {
     this.authController = new AuthController(this.app.prisma)
     this.articleController = new ArticleController(this.app.prisma)
+    this.webhookController = new WebhookController(this.app.prisma)
 
     this.defineRoutes()
   }
@@ -50,6 +53,12 @@ export class AppRoute {
         requireAuth: true,
         schema: StoreArticleRequestSchema,
       }
+    )
+
+    //Webhook
+    this.post(
+      '/webhook',
+      this.webhookController.index.bind(this.webhookController)
     )
   }
 

@@ -105,11 +105,11 @@ export class Application {
    */
   async listen(port: number = 3000, callback: () => void) {
     this.port = port
-    await this.connect()
     this.server = Bun.serve({
       port: this.port,
       fetch: this.fetch.bind(this),
     })
+    await this.connect()
     callback()
   }
 }
